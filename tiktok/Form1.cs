@@ -361,15 +361,7 @@ namespace tiktok
             {
                 changeDificultyToolStripMenuItem.Visible = true;
 
-                if (TikTok.HardMode)
-                {
-                    label7.Text = "Hard mode on: " + TikTok.HardMode;
-                }
-
-                if (!TikTok.HardMode)
-                {
-                    label7.Text = "Hard mode on: " + TikTok.HardMode;
-                }
+                label7.Text = "Hard mode on: " + TikTok.HardMode;
             }
         }
 
