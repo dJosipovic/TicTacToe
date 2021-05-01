@@ -13,7 +13,7 @@ namespace tiktok
     public partial class Form2 : Form
     {
         public static bool CloseTheApp = false;
-        public bool NotCloseByX = false;
+        public bool NotClosedByX = false;
         public static bool OnePlayerMode;
 
         public Form2()
@@ -21,12 +21,13 @@ namespace tiktok
             InitializeComponent();
             this.FormClosing += Form1_FormClosing;
         }
+
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {
 
             if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
-            if (e.CloseReason == CloseReason.UserClosing && NotCloseByX == false)
+            if (e.CloseReason == CloseReason.UserClosing && NotClosedByX == false)
             {
 
                 switch (MessageBox.Show(this, "Are you sure?", "Do you wish to exit the application?", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
@@ -51,7 +52,7 @@ namespace tiktok
                 MessageBox.Show("Player one name cannot be left empty. Please enter your name.");
             else
             {
-                NotCloseByX = true;
+                NotClosedByX = true;
                 this.Close();
             }
         }
@@ -64,7 +65,7 @@ namespace tiktok
                 MessageBox.Show("Name textboxes cannot be left empty. Please enter your names.");
             else
             {
-                NotCloseByX = true;
+                NotClosedByX = true;
                 this.Close();
             }
         }

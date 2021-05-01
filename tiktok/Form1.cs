@@ -22,233 +22,24 @@ namespace tiktok
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            TikTok.f2.ShowDialog();
+            TikTok.F2.ShowDialog();
 
             if (Form2.CloseTheApp == true)
                 this.Close();
 
-            label1.Text = TikTok.user1name;
-            label3.Text = TikTok.user2name;
+            label1.Text = TikTok.User1name;
+            label3.Text = TikTok.User2name;
 
 
             CheckWhatModeIsOn();
         }
 
-        public void CheckWhatModeIsOn()
-        {
-            if (!Form2.OnePlayerMode)
-                changeDificultyToolStripMenuItem.Visible = false;
-
-            if (Form2.OnePlayerMode)
-            {
-                if (TikTok.HardMode)
-                {
-                    label7.Text = "Hard mode on: " + TikTok.HardMode;
-                }
-
-                if (!TikTok.HardMode)
-                {
-                    label7.Text = "Hard mode on: " + TikTok.HardMode;
-                }
-            }
-        }
-
-        public static void SetPlayerNames(string s1, string s2 = "O")
-        {
-            TikTok.user1name = s1;
-            TikTok.user2name = s2;
-        }
-        private void onButton_click(object sender, EventArgs e)
-        {
-
-            Button btn = (Button)sender;
-            if (TikTok.turn)
-                btn.Text = TikTok.Player.X.ToString();
-            else
-                btn.Text = TikTok.Player.O.ToString();
-
-            TikTok.turn = !TikTok.turn;
-
-            btn.Enabled = false;
-
-            TikTok.count++;
-
-            CheckAWinner();
-
-            if (!TikTok.turn && Form2.OnePlayerMode && TikTok.count != 9)
-                timer1.Start();
-
-
-
-            label8.Focus();
-        }
-
-        private void button_enter(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Enabled)
-            {
-                if (TikTok.turn)
-                    btn.Text = TikTok.Player.X.ToString();
-                else
-                    btn.Text = TikTok.Player.O.ToString();
-            }
-
-
-        }
-
-        private void button_leave(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Enabled)
-            {
-                btn.Text = "";
-            }
-        }
-
-        public void CheckAWinner()
-        {
-
-            TikTok.win = false;
-
-            //horizontal
-            if ((button1.Text == button2.Text) && (button2.Text == button3.Text) && (!button1.Enabled))
-            {
-                TikTok.win = true;
-                button1.BackColor = button2.BackColor = button3.BackColor = Color.GreenYellow;
-            }
-
-            else if ((button4.Text == button5.Text) && (button5.Text == button6.Text) && (!button4.Enabled))
-            {
-                TikTok.win = true;
-                button4.BackColor = button5.BackColor = button6.BackColor = Color.GreenYellow;
-            }
-
-            else if ((button7.Text == button8.Text) && (button8.Text == button9.Text) && (!button7.Enabled))
-            {
-                TikTok.win = true;
-                button7.BackColor = button8.BackColor = button9.BackColor = Color.GreenYellow;
-            }
-
-            //vert
-            else if ((button1.Text == button4.Text) && (button4.Text == button7.Text) && (!button1.Enabled))
-            {
-                TikTok.win = true;
-                button1.BackColor = button4.BackColor = button7.BackColor = Color.GreenYellow;
-            }
-
-            else if ((button2.Text == button5.Text) && (button5.Text == button8.Text) && (!button2.Enabled))
-            {
-                TikTok.win = true;
-                button2.BackColor = button5.BackColor = button8.BackColor = Color.GreenYellow;
-            }
-
-            else if ((button3.Text == button6.Text) && (button6.Text == button9.Text) && (!button3.Enabled))
-            {
-                TikTok.win = true;
-                button3.BackColor = button6.BackColor = button9.BackColor = Color.GreenYellow;
-            }
-
-
-            //diag
-            else if ((button1.Text == button5.Text) && (button5.Text == button9.Text) && (!button1.Enabled))
-            {
-                TikTok.win = true;
-                button1.BackColor = button5.BackColor = button9.BackColor = Color.GreenYellow;
-            }
-
-            else if ((button3.Text == button5.Text) && (button5.Text == button7.Text) && (!button7.Enabled))
-            {
-                TikTok.win = true;
-                button3.BackColor = button5.BackColor = button7.BackColor = Color.GreenYellow;
-            }
-
-            if (TikTok.win || TikTok.count == 9)
-            {
-
-                disableButtons();
-
-
-                if (!TikTok.turn && TikTok.count != 9)
-                    label2.Text = (Int32.Parse(label2.Text) + 1).ToString();
-
-                if (TikTok.turn && TikTok.count != 9)
-                    label4.Text = (Int32.Parse(label4.Text) + 1).ToString();
-
-                if (TikTok.count == 9)
-                    label6.Text = (Int32.Parse(label6.Text) + 1).ToString();
-
-                string title = TikTok.turn ? TikTok.user2name + " is a winner!" : TikTok.count == 9 ? "It's a draw!" : TikTok.user1name + " is a winner!";
-
-
-                TikTok.result = MessageBox.Show("Awesome! Would you like to play a new game?", title, TikTok.DialogButtons, MessageBoxIcon.Question);
-
-                if (TikTok.result == DialogResult.No)
-                {
-                    this.Close();
-                }
-
-                if (TikTok.result == DialogResult.Yes)
-                {
-                    NewGame();
-                }
-
-            }
-
-        }
-
-        public void disableButtons()
-        {
-            foreach (Button btn in this.Controls.OfType<Button>())
-            {
-                btn.Enabled = false;
-            }
-        }
-
-        public void ResetCounts()
-        {
-            label2.Text = "0";
-            label4.Text = "0";
-            label6.Text = "0";
-        }
-        private void resetCountsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ResetCounts();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Made by: Darko Josipović", "Tic tac toe game.");
-        }
-
-        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewGame();
-        }
-
-        public void NewGame()
-        {
-            TikTok.turn = true;
-            TikTok.count = 0;
-            foreach (Button btn in this.Controls.OfType<Button>())
-            {
-                btn.Enabled = true;
-                btn.Text = "";
-                btn.BackColor = SystemColors.ControlLight;
-            }
-        }
-
-       
+        #region AIMethods
         public void FindAvailableButtons()
         {
             foreach (Button btn in this.Controls.OfType<Button>().Where(x => x.Text == ""))
             {
-                TikTok.list.Add(btn);
+                TikTok.List.Add(btn);
             }
         }
 
@@ -274,9 +65,9 @@ namespace tiktok
 
             if (!TikTok.HardMode)
             {
-                int index = TikTok.rand.Next(TikTok.list.Count);
+                int index = TikTok.Rand.Next(TikTok.List.Count);
 
-                TikTok.list[index].PerformClick();
+                TikTok.List[index].PerformClick();
             }
 
             if (TikTok.HardMode)
@@ -300,7 +91,7 @@ namespace tiktok
                 move.PerformClick();
             }
 
-            TikTok.list.Clear();
+            TikTok.List.Clear();
             timer1.Stop();
         }
 
@@ -460,6 +251,79 @@ namespace tiktok
             return null;
         }
 
+        #endregion
+
+        #region Buttons
+        private void onButton_click(object sender, EventArgs e)
+        {
+
+            Button btn = (Button)sender;
+            if (TikTok.Turn)
+                btn.Text = TikTok.Player.X.ToString();
+            else
+                btn.Text = TikTok.Player.O.ToString();
+
+            TikTok.Turn = !TikTok.Turn;
+
+            btn.Enabled = false;
+
+            TikTok.Count++;
+
+            CheckAWinner();
+
+            if (!TikTok.Turn && Form2.OnePlayerMode && TikTok.Count != 9)
+                timer1.Start();
+
+
+
+            label8.Focus();
+        }
+
+        private void button_enter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (btn.Enabled)
+            {
+                if (TikTok.Turn)
+                    btn.Text = TikTok.Player.X.ToString();
+                else
+                    btn.Text = TikTok.Player.O.ToString();
+            }
+
+
+        }
+
+        private void button_leave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (btn.Enabled)
+            {
+                btn.Text = "";
+            }
+        }
+        #endregion
+
+        #region ToolStripMenu
+        private void resetCountsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetCounts();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Made by: Darko Josipović", "Tic tac toe game.");
+        }
+
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewGame();
+        }
+
         private void easyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TikTok.HardMode = false;
@@ -474,17 +338,176 @@ namespace tiktok
 
         private void changePlayerNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TikTok.f2.ShowDialog();
+            TikTok.F2.ShowDialog();
             label7.Text = "";
             ResetCounts();
             if (TikTok.HardMode)
                 TikTok.HardMode = false;
 
-            label1.Text = TikTok.user1name;
-            label3.Text = TikTok.user2name;
+            label1.Text = TikTok.User1name;
+            label3.Text = TikTok.User2name;
 
 
             CheckWhatModeIsOn();
         }
+        #endregion
+
+        public void CheckWhatModeIsOn()
+        {
+            if (!Form2.OnePlayerMode)
+                changeDificultyToolStripMenuItem.Visible = false;
+
+            if (Form2.OnePlayerMode)
+            {
+                changeDificultyToolStripMenuItem.Visible = true;
+
+                if (TikTok.HardMode)
+                {
+                    label7.Text = "Hard mode on: " + TikTok.HardMode;
+                }
+
+                if (!TikTok.HardMode)
+                {
+                    label7.Text = "Hard mode on: " + TikTok.HardMode;
+                }
+            }
+        }
+
+        public static void SetPlayerNames(string s1, string s2 = "O")
+        {
+            TikTok.User1name = s1;
+            TikTok.User2name = s2;
+        }
+      
+
+        public void CheckAWinner()
+        {
+
+            TikTok.Win = false;
+
+            //horizontal
+            if ((button1.Text == button2.Text) && (button2.Text == button3.Text) && (!button1.Enabled))
+            {
+                TikTok.Win = true;
+                button1.BackColor = button2.BackColor = button3.BackColor = Color.GreenYellow;
+            }
+
+            else if ((button4.Text == button5.Text) && (button5.Text == button6.Text) && (!button4.Enabled))
+            {
+                TikTok.Win = true;
+                button4.BackColor = button5.BackColor = button6.BackColor = Color.GreenYellow;
+            }
+
+            else if ((button7.Text == button8.Text) && (button8.Text == button9.Text) && (!button7.Enabled))
+            {
+                TikTok.Win = true;
+                button7.BackColor = button8.BackColor = button9.BackColor = Color.GreenYellow;
+            }
+
+            //vertical
+            else if ((button1.Text == button4.Text) && (button4.Text == button7.Text) && (!button1.Enabled))
+            {
+                TikTok.Win = true;
+                button1.BackColor = button4.BackColor = button7.BackColor = Color.GreenYellow;
+            }
+
+            else if ((button2.Text == button5.Text) && (button5.Text == button8.Text) && (!button2.Enabled))
+            {
+                TikTok.Win = true;
+                button2.BackColor = button5.BackColor = button8.BackColor = Color.GreenYellow;
+            }
+
+            else if ((button3.Text == button6.Text) && (button6.Text == button9.Text) && (!button3.Enabled))
+            {
+                TikTok.Win = true;
+                button3.BackColor = button6.BackColor = button9.BackColor = Color.GreenYellow;
+            }
+
+
+            //diagonal
+            else if ((button1.Text == button5.Text) && (button5.Text == button9.Text) && (!button1.Enabled))
+            {
+                TikTok.Win = true;
+                button1.BackColor = button5.BackColor = button9.BackColor = Color.GreenYellow;
+            }
+
+            else if ((button3.Text == button5.Text) && (button5.Text == button7.Text) && (!button7.Enabled))
+            {
+                TikTok.Win = true;
+                button3.BackColor = button5.BackColor = button7.BackColor = Color.GreenYellow;
+            }
+
+            if (TikTok.Win || TikTok.Count == 9)
+            {
+
+                disableButtons();
+
+                if (TikTok.Count == 9 && !TikTok.Win) 
+                {
+                    foreach (Button btn in this.Controls.OfType<Button>())
+                    {
+                        if (btn.Text.Equals("X"))
+                            btn.BackColor = Color.AliceBlue;
+                        else
+                            btn.BackColor = Color.BlueViolet;
+                    }
+                }
+
+                if (!TikTok.Turn && TikTok.Win)
+                    label2.Text = (Int32.Parse(label2.Text) + 1).ToString();
+
+                if (TikTok.Turn && TikTok.Win)
+                    label4.Text = (Int32.Parse(label4.Text) + 1).ToString();
+
+                if (TikTok.Count == 9 && !TikTok.Win)
+                    label6.Text = (Int32.Parse(label6.Text) + 1).ToString();
+
+                string title = TikTok.Turn ? TikTok.User2name + " is a winner!" : TikTok.Count == 9 ? "It's a draw!" : TikTok.User1name + " is a winner!";
+
+
+                TikTok.Result = MessageBox.Show("Awesome! Would you like to play a new game?", title, TikTok.DialogButtons, MessageBoxIcon.Question);
+
+                if (TikTok.Result == DialogResult.No)
+                {
+                    this.Close();
+                }
+
+                if (TikTok.Result == DialogResult.Yes)
+                {
+                    NewGame();
+                }
+
+            }
+
+        }
+
+        public void disableButtons()
+        {
+            foreach (Button btn in this.Controls.OfType<Button>())
+            {
+                btn.Enabled = false;
+            }
+        }
+
+        public void ResetCounts()
+        {
+            label2.Text = "0";
+            label4.Text = "0";
+            label6.Text = "0";
+        }
+      
+
+        public void NewGame()
+        {
+            TikTok.Turn = true;
+            TikTok.Count = 0;
+            foreach (Button btn in this.Controls.OfType<Button>())
+            {
+                btn.Enabled = true;
+                btn.Text = "";
+                btn.BackColor = SystemColors.ControlLight;
+            }
+        }
+
     }
 }

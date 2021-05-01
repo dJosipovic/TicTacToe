@@ -43,7 +43,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(292, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(173, 39);
+            this.label1.Size = new System.Drawing.Size(168, 38);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tic tac toe";
             // 
@@ -97,7 +97,7 @@
             this.textBox1.Location = new System.Drawing.Point(375, 103);
             this.textBox1.MaxLength = 10;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(244, 38);
+            this.textBox1.Size = new System.Drawing.Size(244, 30);
             this.textBox1.TabIndex = 5;
             // 
             // textBox2
@@ -106,7 +106,7 @@
             this.textBox2.Location = new System.Drawing.Point(375, 151);
             this.textBox2.MaxLength = 10;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(244, 38);
+            this.textBox2.Size = new System.Drawing.Size(244, 30);
             this.textBox2.TabIndex = 6;
             // 
             // Form2

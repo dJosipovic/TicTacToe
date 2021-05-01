@@ -9,25 +9,25 @@ namespace tiktok
 {
     public static class TikTok
     {
-        public static bool turn = true;
+        public static bool Turn = true;
 
-        public static int count = 0;
+        public static int Count = 0;
 
         public static MessageBoxButtons DialogButtons = MessageBoxButtons.YesNo;
 
-        public static DialogResult result;
+        public static DialogResult Result;
 
-        public static bool win = false;
+        public static bool Win = false;
 
-        public static string user1name, user2name;
+        public static string User1name, User2name;
 
         public static bool HardMode = false;
 
-        public static Random rand = new Random();
+        public static Random Rand = new Random();
 
-        public static Form2 f2 = new Form2();
+        public static Form2 F2 = new Form2();
 
-        public static List<Button> list = new List<Button>();
+        public static List<Button> List = new List<Button>();
         public enum Player
         {
             X, O
